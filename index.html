@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>空气文字</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .input-field {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .result-field {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>空气文字</h1>
+        <input type="text" id="input-field" class="input-field" placeholder="输入要加密的文本">
+        <button id="encrypt-button" class="button">加密</button>
+        <button id="decrypt-button" class="button">解密</button>
+        <p id="result-field" class="result-field"></p>
+    </div>
+
+    <script>
+        function encrypt(str) {
+            let result = '';
+            for (let i = 0; i < str.length; i++) {
+                const char = str[i];
+                const codePoint = char.charCodeAt(0);
+                const binaryString = codePoint.toString(2);
+                const morseStyleString = binaryString.replace(/0/g, 'ㅤ').replace(/1/g, '‭');
+                result += morseStyleString + ' ';
+            }
+            return result;
+        }
+
+        function decrypt(str) {
+            let result = '';
+            const morseStyleStrings = str.split(' ');
+            for (let i = 0; i < morseStyleStrings.length; i++) {
+                const morseStyleString = morseStyleStrings[i];
+                if (morseStyleString) {
+                    const binaryString = morseStyleString.replace(/ㅤ/g, '0').replace(/‭/g, '1');
+                    const codePoint = parseInt(binaryString, 2);
+                    const char = String.fromCharCode(codePoint);
+                    result += char;
+                }
+            }
+            return result;
+        }
+
+        const inputField = document.getElementById('input-field');
+        const encryptButton = document.getElementById('encrypt-button');
+        const decryptButton = document.getElementById('decrypt-button');
+        const resultField = document.getElementById('result-field');
+
+        encryptButton.addEventListener('click', () => {
+            const message = inputField.value;
+            const encryptedMessage = encrypt(message);
+            resultField.innerHTML = `加密结果: [${encryptedMessage}]`;
+        });
+
+        decryptButton.addEventListener('click', () => {
+            const message = inputField.value;
+            try {
+                const decryptedMessage = decrypt(message);
+                resultField.innerHTML = `解密结果: ${decryptedMessage}`;
+            } catch (error) {
+                resultField.innerHTML = '无效的加密字符串';
+            }
+        });
+    </script>
+</body>
+</html>
+
