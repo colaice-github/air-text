@@ -1,2 +1,5 @@
-# air-text
-简单的程序，方便你跟朋友进行高端交流。
+# 空气文本
+基于ASCI码和摩斯密码的简易程序。
+***仅供娱乐***
+## Demo
+[点这里哦](https://zhangpeng908.github.io/air-text)
