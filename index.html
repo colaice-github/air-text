@@ -37,7 +37,7 @@
 <body>
     <div class="container">
         <h1>空气文字</h1>
-        <input type="text" id="input-field" class="input-field" placeholder="输入要加密的文本">
+        <input type="text" id="input-field" class="input-field" placeholder="输入要处理的文本">
         <button id="encrypt-button" class="button">加密</button>
         <button id="decrypt-button" class="button">解密</button>
         <p id="result-field" class="result-field"></p>
@@ -45,6 +45,7 @@
 
     <script>
         function encrypt(str) {
+            var str = 'A' + str;
             let result = '';
             for (let i = 0; i < str.length; i++) {
                 const char = str[i];
@@ -75,6 +76,7 @@
         const encryptButton = document.getElementById('encrypt-button');
         const decryptButton = document.getElementById('decrypt-button');
         const resultField = document.getElementById('result-field');
+        const copyButton = document.getElementById('copy-button');
 
         encryptButton.addEventListener('click', () => {
             const message = inputField.value;
@@ -86,7 +88,7 @@
             const message = inputField.value;
             try {
                 const decryptedMessage = decrypt(message);
-                resultField.innerHTML = `解密结果: ${decryptedMessage}`;
+                resultField.innerHTML = `解密结果: [${decryptedMessage}]`;
             } catch (error) {
                 resultField.innerHTML = '无效的加密字符串';
             }
@@ -94,4 +96,3 @@
     </script>
 </body>
 </html>
-
